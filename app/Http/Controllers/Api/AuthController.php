@@ -19,10 +19,10 @@ class AuthController extends Controller
         ]);
 
         // Intentamos autenticar con el guard 'api' (que usa JWT)
-        if (!$token = Auth::guard('api')->attempt($credentials)) {
+        if (! $token = Auth::guard('api')->attempt($credentials)) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Credenciales incorrectas'
+                'message' => 'Credenciales incorrectas',
             ], 401);
         }
 
@@ -36,7 +36,7 @@ class AuthController extends Controller
     {
         return response()->json([
             'status' => 'success',
-            'user' => Auth::guard('api')->user()
+            'user' => Auth::guard('api')->user(),
         ]);
     }
 
@@ -49,7 +49,7 @@ class AuthController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Sesión cerrada correctamente'
+            'message' => 'Sesión cerrada correctamente',
         ]);
     }
 
@@ -59,6 +59,7 @@ class AuthController extends Controller
     public function refresh()
     {
         $newToken = Auth::guard('api')->refresh();
+
         return $this->respondWithToken($newToken);
     }
 
@@ -71,7 +72,7 @@ class AuthController extends Controller
             'status' => 'success',
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => Auth::guard('api')->factory()->getTTL() * 60 // Tiempo de vida en segundos
+            'expires_in' => Auth::guard('api')->factory()->getTTL() * 60, // Tiempo de vida en segundos
         ]);
     }
 }

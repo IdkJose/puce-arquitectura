@@ -1,85 +1,105 @@
-# 🚀 Sistema de Administración de Empleados PUCE - Backend
+# 🚀 Sistema de Gestión de Empleados y Cálculos Laborales (PUCE 2026)
 
-Este es el proyecto de backend y API REST desarrollado para el departamento de Talento Humano de la PUCE, como parte de la materia de **Arquitectura Empresarial (2026)**. Cuenta con seguridad mediante tokens **JWT** y cálculos automáticos de décimos, edad y antigüedad.
-
-El frontend está desarrollado con **Vue.js** (integrado mediante Inertia.js).
-
----
-
-## 🛠️ Requisitos previos
-
-Asegúrate de tener instalado en tu sistema:
-* **PHP >= 8.2**
-* **Composer**
-* **Node.js & NPM**
-* **SQLite** (u otro motor de base de datos)
+Este proyecto es una solución integral para el **Cálculo de Décimo Tercer y Décimo Cuarto Sueldo** de empleados en Ecuador, compuesta por:
+- 🐘 **Backend REST API**: Laravel 11 / PHP 8.4 con autenticación JWT (`tymon/jwt-auth`).
+- 💻 **Frontend Web**: React 19 + Inertia.js + Tailwind CSS.
+- 📱 **Aplicación Móvil**: React Native + Expo (SDK 54) + TypeScript.
 
 ---
 
-## 💻 Pasos para levantar el proyecto en otra máquina
+## 📋 Requisitos Previos
 
-Sigue estos comandos en orden dentro de tu terminal para clonar y ejecutar el sistema desde cero:
+Asegúrate de tener instalados los siguientes programas en tu computadora:
 
-### 1. Clonar el repositorio y entrar a la carpeta
-```bash
-git clone <URL_DE_TU_REPOSITORIO>
-cd <NOMBRE_DE_LA_CARPETA>
-```
-
-### 2. Instalar las dependencias de PHP (Laravel)
-```bash
-composer install
-```
-
-### 3. Instalar las dependencias de JavaScript (Vue.js / Vite)
-```bash
-npm install
-```
-
-### 4. Configurar las variables de entorno
-Crea una copia del archivo `.env.example` y nómbrala `.env`:
-* **En Windows (PowerShell)**:
-  ```powershell
-  copy .env.example .env
-  ```
-* **En Linux / macOS**:
-  ```bash
-  cp .env.example .env
-  ```
-
-### 5. Generar las claves de seguridad
-Ejecuta estos dos comandos para generar la firma de Laravel y la clave secreta de encriptación para los tokens JWT:
-```bash
-php artisan key:generate
-php artisan jwt:secret
-```
-
-### 6. Ejecutar migraciones y sembrar base de datos
-Este comando creará las tablas en SQLite y registrará automáticamente al usuario administrador de pruebas:
-```bash
-php artisan migrate --seed
-```
-* **Usuario Admin por defecto**: `admin@puce.edu.ec`
-* **Contraseña**: `password123`
+- [Node.js](https://nodejs.org/) (Versión 18 o superior)
+- [PHP](https://www.php.net/) (Versión 8.2 o superior)
+- [Composer](https://getcomposer.org/)
+- **App móvil Expo Go** (Opcional, instalada en tu teléfono iOS o Android desde la App Store / Play Store)
 
 ---
 
-## 🏃‍♂️ Ejecución del Servidor
+## 🛠️ Paso 1: Configuración e Instalación del Backend (Laravel)
 
-Para utilizar el sistema completo, debes iniciar tanto el servidor de backend (Laravel) como el compilador de frontend (Vite):
-
-1. **Iniciar el Backend de Laravel**:
+1. **Clonar o abrir el repositorio**:
    ```bash
-   php artisan serve
+   git clone <URL_DEL_REPOSITORIO>
+   cd proyecto_arquitectura_empresarial_2026
    ```
-   *(Estará disponible en: http://127.0.0.1:8000)*
 
-2. **Iniciar el compilador de Frontend (Vite/Vue)**:
+2. **Instalar dependencias de PHP (Composer)**:
+   ```bash
+   composer install
+   ```
+
+3. **Configurar el archivo de entorno (`.env`)**:
+   Copia el archivo de ejemplo a `.env`:
+   ```bash
+   cp .env.example .env
+   ```
+
+4. **Generar claves de la aplicación y JWT**:
+   ```bash
+   php artisan key:generate
+   php artisan jwt:secret
+   ```
+
+5. **Preparar la base de datos y cargar datos iniciales**:
+   ```bash
+   php artisan migrate:fresh --seed
+   ```
+   *Esto creará la base de datos SQLite/MySQL y creará el usuario administrador:*
+   - **Email**: `admin@puce.edu.ec`
+   - **Contraseña**: `password123`
+
+---
+
+## 💻 Paso 2: Configuración e Instalación del Frontend Web (React)
+
+1. **Instalar dependencias de Node.js en la raíz**:
+   ```bash
+   npm install
+   ```
+
+2. **Iniciar el servidor de desarrollo Web**:
    ```bash
    npm run dev
    ```
 
+3. **Iniciar el servidor Backend de Laravel (Escuchando en la red local)**:
+   Abre **otra terminal** en la raíz del proyecto y ejecuta:
+   ```bash
+   php artisan serve --host=0.0.0.0 --port=8000
+   ```
+   > 🌐 **Acceso Web**: Abre tu navegador e ingresa a `http://localhost:8000`.
+
 ---
 
-## 🧪 Pruebas de la API
-En la raíz del proyecto cuentas con el archivo `PUCE_Empleado_API.postman_collection.json` listo para ser importado en **Postman** o **Bruno** para validar de inmediato todos los endpoints del backend con JWT.
+## 📱 Paso 3: Configuración e Instalación de la App Móvil (React Native)
+
+1. **Navegar a la carpeta `mobile` e instalar dependencias**:
+   ```bash
+   cd mobile
+   npm install
+   ```
+
+2. **Verificar la Dirección IP del Backend**:
+   Abre el archivo [`mobile/src/services/api.ts`](file:///c:/Users/jherr/Herd/proyecto_arquitectura_empresarial_2026/mobile/src/services/api.ts) y confirma que la variable `API_BASE_URL` apunte a la IP de tu computadora en la red Wi-Fi (ejemplo `http://192.168.1.20:8000/api`).
+
+3. **Iniciar el servidor de Expo**:
+   ```bash
+   npm start
+   ```
+
+4. **Probar en tu dispositivo**:
+   - **En Teléfono Físico**: Abre la aplicación **Expo Go** en tu celular y escanea el código QR que se muestra en la terminal.
+   - **En la Web (Simulador)**: Presiona la tecla **`w`** en la terminal.
+   - **Credenciales de Login Móvil**:
+     - **Email**: `admin@puce.edu.ec`
+     - **Contraseña**: `password123`
+
+---
+
+## 🧪 Pruebas de API y Documentación
+
+- **Postman**: La colección de endpoints se encuentra en la raíz como [`PUCE_Empleado_API.postman_collection.json`](file:///c:/Users/jherr/Herd/proyecto_arquitectura_empresarial_2026/PUCE_Empleado_API.postman_collection.json).
+- **Documentación API**: Revisa [`API_DOCUMENTACION.md`](file:///c:/Users/jherr/Herd/proyecto_arquitectura_empresarial_2026/API_DOCUMENTACION.md) para consultar los esquemas de respuestas e instrucciones detalladas.

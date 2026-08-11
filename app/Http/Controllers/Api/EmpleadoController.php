@@ -19,10 +19,10 @@ class EmpleadoController extends Controller
     public function index()
     {
         $empleados = Empleado::all();
-        
+
         return response()->json([
             'status' => 'success',
-            'data' => $empleados
+            'data' => $empleados,
         ]);
     }
 
@@ -41,24 +41,24 @@ class EmpleadoController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Empleado registrado con éxito',
-            'data' => $empleado
-        ], 201); 
+            'data' => $empleado,
+        ], 201);
     }
 
     public function show($id)
     {
         $empleado = Empleado::find($id);
 
-        if (!$empleado) {
+        if (! $empleado) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Empleado no encontrado'
+                'message' => 'Empleado no encontrado',
             ], 404);
         }
 
         return response()->json([
             'status' => 'success',
-            'data' => $empleado
+            'data' => $empleado,
         ]);
     }
 
@@ -66,7 +66,7 @@ class EmpleadoController extends Controller
     {
         $empleado = Empleado::find($id);
 
-        if (!$empleado) {
+        if (! $empleado) {
             return response()->json(['status' => 'error', 'message' => 'Empleado no encontrado'], 404);
         }
 
@@ -76,16 +76,15 @@ class EmpleadoController extends Controller
             'status' => 'success',
             'empleado' => "{$empleado->nombre} {$empleado->apellido}",
             'fecha_nacimiento' => $empleado->fecha_nacimiento->format('Y-m-d'),
-            'edad' => $edad
+            'edad' => $edad,
         ]);
     }
-
 
     public function calcularAntiguedad($id)
     {
         $empleado = Empleado::find($id);
 
-        if (!$empleado) {
+        if (! $empleado) {
             return response()->json(['status' => 'error', 'message' => 'Empleado no encontrado'], 404);
         }
 
@@ -95,16 +94,15 @@ class EmpleadoController extends Controller
             'status' => 'success',
             'empleado' => "{$empleado->nombre} {$empleado->apellido}",
             'fecha_ingreso' => $empleado->fecha_ingreso->format('Y-m-d'),
-            'antiguedad' => $antiguedad
+            'antiguedad' => $antiguedad,
         ]);
     }
-
 
     public function calcularPrestaciones($id)
     {
         $empleado = Empleado::find($id);
 
-        if (!$empleado) {
+        if (! $empleado) {
             return response()->json(['status' => 'error', 'message' => 'Empleado no encontrado'], 404);
         }
 
@@ -117,7 +115,7 @@ class EmpleadoController extends Controller
             'status' => 'success',
             'empleado' => "{$empleado->nombre} {$empleado->apellido}",
             'salario_base' => $empleado->salario,
-            'prestaciones' => $prestaciones
+            'prestaciones' => $prestaciones,
         ]);
     }
 
@@ -125,7 +123,7 @@ class EmpleadoController extends Controller
     {
         $empleado = Empleado::find($id);
 
-        if (!$empleado) {
+        if (! $empleado) {
             return response()->json(['status' => 'error', 'message' => 'Empleado no encontrado'], 404);
         }
 
@@ -134,13 +132,13 @@ class EmpleadoController extends Controller
         ]);
 
         $empleado->update([
-            'salario' => $validated['salario']
+            'salario' => $validated['salario'],
         ]);
 
         return response()->json([
             'status' => 'success',
             'message' => 'Salario actualizado con éxito',
-            'data' => $empleado
+            'data' => $empleado,
         ]);
     }
 
@@ -148,7 +146,7 @@ class EmpleadoController extends Controller
     {
         $empleado = Empleado::find($id);
 
-        if (!$empleado) {
+        if (! $empleado) {
             return response()->json(['status' => 'error', 'message' => 'Empleado no encontrado'], 404);
         }
 
@@ -156,7 +154,7 @@ class EmpleadoController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Empleado eliminado correctamente'
+            'message' => 'Empleado eliminado correctamente',
         ]);
     }
 }

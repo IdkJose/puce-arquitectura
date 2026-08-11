@@ -15,7 +15,6 @@ use Laravel\Fortify\PasskeyAuthenticatable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
-
 /**
  * @property int $id
  * @property string $name
@@ -31,7 +30,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  */
 #[Fillable(['name', 'email', 'password'])]
 #[Hidden(['password', 'two_factor_secret', 'two_factor_recovery_codes', 'remember_token'])]
-class User extends Authenticatable implements PasskeyUser, JWTSubject
+class User extends Authenticatable implements JWTSubject, PasskeyUser
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable, PasskeyAuthenticatable, TwoFactorAuthenticatable;
@@ -49,6 +48,7 @@ class User extends Authenticatable implements PasskeyUser, JWTSubject
             'two_factor_confirmed_at' => 'datetime',
         ];
     }
+
     /**
      * Obtiene el identificador que se guardará en el token JWT (el ID del usuario).
      */
@@ -56,6 +56,7 @@ class User extends Authenticatable implements PasskeyUser, JWTSubject
     {
         return $this->getKey();
     }
+
     /**
      * Retorna un arreglo con datos personalizados para adjuntar dentro del token.
      */

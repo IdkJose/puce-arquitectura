@@ -307,7 +307,7 @@
 	"variable": [
 		{
 			"key": "base_url",
-			"value": "http://proyecto_arquitectura_empresarial_2026.test",
+			"value": "http://localhost:8000",
 			"type": "string"
 		},
 		{

@@ -27,3 +27,13 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+
+# Reglas para el proyecto móvil React Native
+/mobile/node_modules
+/mobile/.expo
+/mobile/dist
+/mobile/web-build
+
+# Credenciales y archivos temporales de NotebookLM / MCP
+.notebooklm/
+.notebooklm-mcp/
