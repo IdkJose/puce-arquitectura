@@ -17,10 +17,12 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::create([
-            'name' => 'Administrador PUCE',
-            'email' => 'admin@puce.edu.ec',
-            'password' => bcrypt('password123'),
-        ]);
+        User::firstOrCreate(
+            ['email' => 'admin@puce.edu.ec'],
+            [
+                'name' => 'Administrador PUCE',
+                'password' => bcrypt('password123'),
+            ]
+        );
     }
 }
